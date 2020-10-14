@@ -1,0 +1,53 @@
+.TH Boreas 8 "June 2020" "Boreas" "User Manuals"
+.SH NAME
+boreas \- Command line tool for basic alive detection.
+.SH SYNOPSIS
+.BI "boreas [\|-v\|] [\|-h\|]  [\|--target " target-list\| "]  [\|--exclude " exclude-list\| "]  [\|--ports " port-list\| "]
+.BI " [\|--icmp\|] [\|--tcp-ack\|] [\|--tcp-syn\|] [\|--arp\|]"
+
+.SH DESCRIPTION
+
+.BR Boreas
+is a Host-Alive Scanner that identifies the active IP addresses of the target range.
+
+.SH OPTIONS
+
+.TP 
+.B "-v, --version"
+Print the version number and exit.
+
+.TP
+.B "-h, --help"
+Show a summary of the commands.
+
+.TP
+.BI "--target=" <target-list>
+Targets to scan. One or many hosts. The list is comma-separated. Each entry can be a IP address, a CIDR notation, a hostname, a IP range. IPs can be v4 or v6.
+
+.TP
+.BI "--exclude=" <exclude-list>
+One or many hosts to exclude form the target list. The list is comma-separated. Each entry can be a IP address, a CIDR notation, a hostname, a IP range. IPs can be v4 or v6.
+
+.TP
+.BI "--ports=" <port-list>
+Ports to check for every target in the target list. The syntax of this option is flexible, it can be a single range ("1-1500"), several ports ("21,23,80"), several ranges of ports ("1-1500,32000-33000").
+
+.TP
+.BI "--icmp"
+Use ICMP ping for alive detection.
+
+.TP
+.BI "--tcp-ack"
+Use TCP-ACK ping for alive detection.
+
+.TP
+.BI "--port"
+Use TCP-SYN ping for alive detection.
+
+.TP
+.BI "--arp"
+Use ARP ping for alive detection.
+	
+.SH AUTHORS
+
+(C) 2020 Greenbone Networks GmbH.

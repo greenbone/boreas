@@ -1,0 +1,22 @@
+# Boreas logging configuration
+
+[sd   main]
+prepend=%t %s %p
+separator=:
+prepend_time_format=%Y-%m-%d %Hh%M.%S %Z
+file=${BOREAS_LOG_DIR}/boreas.log
+level=127
+
+[alive scan]
+prepend=%t %s %p
+separator=:
+prepend_time_format=%Y-%m-%d %Hh%M.%S %Z
+file=${BOREAS_LOG_DIR}/boreas.log
+level=127
+
+[*]
+prepend=%t %s %p
+separator=:
+prepend_time_format=%Y-%m-%d %Hh%M.%S %Z
+file=${BOREAS_LOG_DIR}/boreas.log
+level=127
