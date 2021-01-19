@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 jobs:
   check_format:
     docker:
@@ -96,7 +96,7 @@ jobs:
             . venv/bin/activate
             codecov -F documentation -X gcov -f lcov.info
 workflows:
-  version: 2
+  version: 2.1
   build_and_test:
     jobs:
       - check_format
