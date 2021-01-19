@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run:
           name: Check Source Format
-          command: clang-format -i -style=file src/*.{c,h} misc/*.{c,h} nasl/*.{c,h} && git diff --exit-code
+          command: clang-format -i -style=file src/*.c && git diff --exit-code
   test_units:
     docker:
       - image: greenbone/build-env-openvas-scanner-master-debian-buster-gcc-core
