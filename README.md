@@ -1,4 +1,4 @@
-![Greenbone Logo](https://www.greenbone.net/wp-content/uploads/gb_logo_resilience_horizontal.png)
+![Greenbone Logo](https://www.greenbone.net/wp-content/uploads/gb_logo_resilience_horizontal.png) ![Boreas Logo](doc/img/Boreas_AliveScanner_horizontal.png)
 
 # Boreas
 
