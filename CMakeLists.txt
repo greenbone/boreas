@@ -122,9 +122,9 @@ if (NOT EXEC_PREFIX)
   set (EXEC_PREFIX "${CMAKE_INSTALL_PREFIX}")
 endif (NOT EXEC_PREFIX)
 
-if (NOT SBINDIR)
-  set (SBINDIR "${EXEC_PREFIX}/sbin")
-endif (NOT SBINDIR)
+if (NOT BINDIR)
+  set (BINDIR "${EXEC_PREFIX}/bin")
+endif (NOT BINDIR)
 
 message ("-- Install prefix: ${CMAKE_INSTALL_PREFIX}")
 
