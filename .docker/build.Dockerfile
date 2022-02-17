@@ -6,7 +6,6 @@ RUN apt-get update && apt-get install --no-install-recommends --no-install-sugge
     build-essential \
     curl \
     cmake \
-    git \
     pkg-config \
     libglib2.0-dev \
     libgnutls28-dev \
