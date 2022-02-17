@@ -105,13 +105,13 @@ include (CPack)
 ## Variables
 
 if (NOT SYSCONFDIR)
-  set (SYSCONFDIR "${CMAKE_INSTALL_PREFIX}/etc")
+  set (SYSCONFDIR "$/etc")
 endif (NOT SYSCONFDIR)
 
 set (BOREAS_SYSCONF_DIR "${SYSCONFDIR}/boreas")
 
 if (NOT LOCALSTATEDIR)
-  set (LOCALSTATEDIR "${CMAKE_INSTALL_PREFIX}/var")
+  set (LOCALSTATEDIR "/var")
 endif (NOT LOCALSTATEDIR)
 
 if (NOT BOREAS_LOG_DIR)
