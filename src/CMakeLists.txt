@@ -118,7 +118,7 @@ add_dependencies (tags etags ctags)
 ## Install
 
 install (TARGETS boreas
-         RUNTIME DESTINATION ${SBINDIR}
+         RUNTIME DESTINATION ${BINDIR}
          PERMISSIONS OWNER_EXECUTE OWNER_READ OWNER_WRITE
          GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
 
