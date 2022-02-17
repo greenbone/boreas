@@ -62,7 +62,6 @@ set_target_properties (boreas PROPERTIES LINKER_LANGUAGE C)
 include_directories (${GLIB_INCLUDE_DIRS}
                      ${LIBGVM_BASE_INCLUDE_DIRS}
                      ${LIBGVM_BOREAS_INCLUDE_DIRS})
-                     ${LIBGVM_UTILS_INCLUDE_DIRS})
 
 set (CMAKE_C_FLAGS_DEBUG        "${CMAKE_C_FLAGS_DEBUG} -Werror -Wextra")
 
