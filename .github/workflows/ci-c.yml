@@ -28,13 +28,8 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=1 ..
+          cmake -DCMAKE_BUILD_TYPE=Debug ..
           make install
-      - name: Test boreas
-        run: |
-          cd build
-          make tests
-          CTEST_OUTPUT_ON_FAILURE=1 make test
 
   scan-build:
     name: Scan-build with clang
