@@ -24,7 +24,7 @@ jobs:
     container: greenbone/boreas:unstable
     steps:
       - uses: actions/checkout@v2
-      - name: Configure and Compile gvm-libs
+      - name: Configure and Compile boreas
         run: |
           mkdir build
           cd build
