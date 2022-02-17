@@ -23,6 +23,7 @@
 #include <gvm/base/version.h> /* for gvm_libs_version */
 #include <gvm/boreas/alivedetection.h>
 #include <gvm/boreas/cli.h>
+#include <gvm/util/kb.h> /* for struct kb_item */
 #include <strings.h>
 #include <sys/types.h>
 #include <unistd.h>
