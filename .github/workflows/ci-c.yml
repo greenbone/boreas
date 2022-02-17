@@ -21,7 +21,7 @@ jobs:
   tests:
     name: Unit Tests
     runs-on: 'ubuntu-latest'
-    container: greenbone/boreas:unstable
+    container: greenbone/boreas-build:unstable
     steps:
       - uses: actions/checkout@v2
       - name: Configure and Compile boreas
@@ -39,7 +39,7 @@ jobs:
   scan-build:
     name: Scan-build with clang
     runs-on: 'ubuntu-latest'
-    container: greenbone/boreas:unstable
+    container: greenbone/boreas-build:unstable
     steps:
       - uses: actions/checkout@v2
       - name: Install clang tools
