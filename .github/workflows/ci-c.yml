@@ -47,7 +47,7 @@ jobs:
           apt update
           apt install --no-install-recommends -y clang clang-format clang-tools
           rm -rf /var/lib/apt/lists/*
-      - name: Configure and Scan Build gvm-libs
+      - name: Configure and Scan Build boreas
         run: |
           cmake -Bbuild -DCMAKE_BUILD_TYPE=Release
           scan-build -o ~/scan-build-report cmake --build build
