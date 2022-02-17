@@ -88,6 +88,7 @@ if (CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
 endif (CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
 
 target_link_libraries (boreas
+                       -lm
                        ${LIBGVM_BASE_LDFLAGS}
                        ${LIBGVM_UTIL_LDFLAGS}
                        ${LIBGVM_BOREAS_LDFLAGS}
