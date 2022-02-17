@@ -34,7 +34,7 @@ jobs:
             REPOSITORY=${{ github.repository }}
 
   build:
-    name: "Upload images for building openvas-scanner"
+    name: "Upload images for building boreas"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
