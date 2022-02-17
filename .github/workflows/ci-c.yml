@@ -1,0 +1,60 @@
+name: Build and test C
+
+on:
+  push:
+    branches: [ main, oldstable, stable ]
+  pull_request:
+    branches: [ main, oldstable, stable ]
+
+
+jobs:
+  c-format-check:
+    name: Check C Source Code Formatting
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check Source Format
+        run: |
+          clang-format -i -style=file src/*.c
+          git diff --exit-code
+
+  tests:
+    name: Unit Tests
+    runs-on: 'ubuntu-latest'
+    container: greenbone/boreas:unstable
+    steps:
+      - uses: actions/checkout@v2
+      - name: Configure and Compile boreas
+        run: |
+          mkdir build
+          cd build
+          cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=1 ..
+          make install
+      - name: Test boreas
+        run: |
+          cd build
+          make tests
+          CTEST_OUTPUT_ON_FAILURE=1 make test
+
+  scan-build:
+    name: Scan-build with clang
+    runs-on: 'ubuntu-latest'
+    container: greenbone/boreas:unstable
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install clang tools
+        run: |
+          apt update
+          apt install --no-install-recommends -y clang clang-format clang-tools
+          rm -rf /var/lib/apt/lists/*
+      - name: Configure and Scan Build boreas
+        run: |
+          cmake -Bbuild -DCMAKE_BUILD_TYPE=Release
+          scan-build -o ~/scan-build-report cmake --build build
+      - name: Upload scan-build report
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: scan-build-report
+          path: ~/scan-build-report/
+          retention-days: 7
