@@ -17,4 +17,4 @@ jobs:
         github-user-mail: ${{ secrets.GREENBONE_BOT_MAIL }}
         github-user-token: ${{ secrets.GREENBONE_BOT_TOKEN }}
         directories: src
-        target: main
+        target: stable
