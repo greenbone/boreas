@@ -187,7 +187,7 @@ main (int argc, char *argv[])
     }
 
   /* Run the cli scan. */
-  err = run_cli (hosts, alive_test, port_list, wait_timeout);
+  err = run_cli_extended (hosts, alive_test, port_list, wait_timeout);
   if (err)
     printf ("Could not run the scan. %s. Further information can be found in "
             "the log file located in %s. \n",
