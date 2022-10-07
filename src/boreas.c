@@ -62,6 +62,7 @@ main (int argc, char *argv[])
   static gboolean tcp_ack = FALSE;
   static gboolean tcp_syn = FALSE;
   static gboolean arp = FALSE;
+  static unsigned int wait_timeout = 3;
 
   GError *error = NULL;
   GOptionContext *option_context;
@@ -85,6 +86,8 @@ main (int argc, char *argv[])
      "TCP-ACK ping. Supports both IPv4 and IPv6.", NULL},
     {"arp", '\0', 0, G_OPTION_ARG_NONE, &arp,
      "ARP ping. Supports both IPv4 and IPv6.", NULL},
+    {"timeout", '\0', 0, G_OPTION_ARG_INT, &wait_timeout,
+     "Wait time for replies.", NULL},
     {NULL, 0, 0, 0, NULL, NULL, NULL}};
 
   option_context = g_option_context_new ("- Boreas");
@@ -184,7 +187,7 @@ main (int argc, char *argv[])
     }
 
   /* Run the cli scan. */
-  err = run_cli (hosts, alive_test, port_list);
+  err = run_cli (hosts, alive_test, port_list, wait_timeout);
   if (err)
     printf ("Could not run the scan. %s. Further information can be found in "
             "the log file located in %s. \n",
