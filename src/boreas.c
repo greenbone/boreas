@@ -136,9 +136,17 @@ main (int argc, char *argv[])
   if (alive_test == 0)
     alive_test = ALIVE_TEST_ICMP;
 
-  /* Verify that the port list is a valid one or use default portlist if none
-   * supplied. */
+    /* Verify that the port list is a valid one or use default portlist if none
+     * supplied. */
+#ifdef DEFAULT_PORT_LIST
+  default_port_list = DEFAULT_PORT_LIST;
+#else
+  /* TODO: the hardcoded default port list and the preprocessor directives
+   * must be removed once 22.4 reaches its end of life. This is done for
+   * backward compatibility. */
   default_port_list = "80,137,587,3128,8081";
+#endif
+
   if (tcp_syn || tcp_ack)
     {
       if (port_list)
