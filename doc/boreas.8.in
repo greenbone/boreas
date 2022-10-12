@@ -33,6 +33,10 @@ One or many hosts to exclude form the target list. The list is comma-separated. 
 Ports to check for every target in the target list. The syntax of this option is flexible, it can be a single range ("1-1500"), several ports ("21,23,80"), several ranges of ports ("1-1500,32000-33000").
 
 .TP
+.BI "--timeout"
+Max. wait time for replies. Default 3
+
+.TP
 .BI "--icmp"
 Use ICMP ping for alive detection.
 
@@ -47,7 +51,7 @@ Use TCP-SYN ping for alive detection.
 .TP
 .BI "--arp"
 Use ARP ping for alive detection.
-	
+
 .SH AUTHORS
 
 (C) 2020 Greenbone Networks GmbH.
