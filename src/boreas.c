@@ -1,4 +1,4 @@
-/* Copyright (C) 2020 Greenbone Networks GmbH
+/* Copyright (C) 2020 Greenbone AG
  *
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
@@ -104,7 +104,7 @@ main (int argc, char *argv[])
     {
       printf ("Boreas %s\n", BOREAS_VERSION);
       printf ("gvm-libs %s\n", gvm_libs_version ());
-      printf ("(C) 2020 Greenbone Networks GmbH\n");
+      printf ("(C) 2020 Greenbone AG\n");
       printf ("License GPLv3+: GNU GPL version 3 or later\n");
       printf (
         "This is free software: you are free to change and redistribute it.\n"
