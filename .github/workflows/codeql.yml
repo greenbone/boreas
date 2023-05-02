@@ -32,7 +32,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'cpp' ]
+        language: [ 'c' ]
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
         # Use only 'java' to analyze code written in Java, Kotlin or both
         # Use only 'javascript' to analyze code written in JavaScript, TypeScript or both
@@ -67,9 +67,11 @@ jobs:
     #   modify them (or add more) to build your code if your project, please refer to the EXAMPLE below for guidance.
 
     - run: |
-       echo "Run, Build Application using script"
-       ./location_of_script_within_repo/buildscript.sh
-
+       mkdir build
+       rm -rf .git
+       cd build/
+       cmake -DCMAKE_BUILD_TYPE=Debug ..
+       make install
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
       with:
