@@ -9,4 +9,5 @@ apt-get update && apt-get install --no-install-recommends --no-install-suggests 
     libglib2.0-dev \
     libgnutls28-dev \
     libpcap-dev \
+    libssh-dev \
     && rm -rf /var/lib/apt/lists/*
