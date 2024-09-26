@@ -11,8 +11,9 @@ jobs:
   c-format-check:
     name: Check C Source Code Formatting
     runs-on: 'ubuntu-latest'
+    container: registry.community.greenbone.net/community/gvm-libs:edge
     steps:
-      - uses: actions/checkout@v4
+      - uses: .github/actions/build-boreas-action
       - name: Check Source Format
         run: |
           clang-format -i -style=file src/*.c
@@ -21,9 +22,9 @@ jobs:
   tests:
     name: Unit Tests
     runs-on: 'ubuntu-latest'
-    container: greenbone/boreas-build:unstable
+    container: registry.community.greenbone.net/community/gvm-libs:edge
     steps:
-      - uses: actions/checkout@v4
+      - uses: .github/actions/build-boreas-action
       - name: Configure and Compile boreas
         run: |
           mkdir build
@@ -31,12 +32,13 @@ jobs:
           cmake -DCMAKE_BUILD_TYPE=Debug ..
           make install
 
+
   scan-build:
     name: Scan-build with clang
     runs-on: 'ubuntu-latest'
-    container: greenbone/boreas-build:unstable
+    container: registry.community.greenbone.net/community/gvm-libs:edge
     steps:
-      - uses: actions/checkout@v4
+      - uses: .github/actions/build-boreas-action
       - name: Install clang tools
         run: |
           apt update

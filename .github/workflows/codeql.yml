@@ -17,7 +17,7 @@ jobs:
       actions: read
       contents: read
       security-events: write
-    container: ${{ github.repository }}-build:unstable
+    container: registry.community.greenbone.net/community/gvm-libs:edge
 
     strategy:
       fail-fast: false
@@ -25,8 +25,7 @@ jobs:
         language: [ 'c' ]
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+    - uses: .github/actions/build-boreas-action
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
