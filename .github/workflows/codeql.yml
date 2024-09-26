@@ -23,7 +23,7 @@ jobs:
       fail-fast: false
       matrix:
         language: [ 'c' ]
-        
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
