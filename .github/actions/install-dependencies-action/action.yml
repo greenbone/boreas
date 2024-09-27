@@ -1,5 +1,5 @@
-name: 'Build Boreas'
-description: 'builds Boreas from source'
+name: 'Install dependencies'
+description: 'Install dependencies for boreas'
 runs:
   using: "composite"
   steps:
