@@ -1,5 +1,5 @@
 name: 'Install dependencies'
-description: 'Install dependencies for boreas'
+description: 'Install dependencies for Boreas'
 runs:
   using: "composite"
   steps:
