@@ -1,7 +1,7 @@
 ARG VERSION=edge
 # this allows to work on forked repository
 ARG REPOSITORY=greenbone/boreas
-FROM greenbone/gvm-libs:$VERSION AS build
+FROM registry.community.greenbone.net/community/gvm-libs:${VERSION} AS build
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -11,7 +11,7 @@ RUN cmake -DCMAKE_BUILD_TYPE=Release -B/build /source
 
 RUN DESTDIR=/install cmake --build /build -- install
 
-FROM greenbone/gvm-libs:$VERSION
+FROM registry.community.greenbone.net/community/gvm-libs:${VERSION}
 
 COPY --from=build /install/ /
 
