@@ -43,7 +43,7 @@ jobs:
       - name: Install clang tools
         run: |
           apt update
-          apt install --no-install-recommends -y clang clang-format clang-tools
+          apt install --no-install-recommends -y clang clang-tools
           rm -rf /var/lib/apt/lists/*
       - name: Configure and Scan Build boreas
         run: |

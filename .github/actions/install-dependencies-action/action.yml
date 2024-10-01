@@ -16,5 +16,5 @@ runs:
         libpcap-dev \
         git \
         clang-format \
-        libssh-dev
+        libssh-dev \
         && rm -rf /var/lib/apt/lists/*
