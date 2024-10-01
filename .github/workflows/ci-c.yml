@@ -13,10 +13,7 @@ jobs:
     runs-on: 'ubuntu-latest'
     container: registry.community.greenbone.net/community/gvm-libs:edge
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: "DEVOPS-1244_rschardt"
-      - uses: .github/actions/install-dependencies-action@DEVOPS-1244_rschardt
+      - uses: ./.github/actions/install-dependencies-action@DEVOPS-1244_rschardt
       - name: Check Source Format
         run: |
           clang-format -i -style=file src/*.c
@@ -27,10 +24,7 @@ jobs:
     runs-on: 'ubuntu-latest'
     container: registry.community.greenbone.net/community/gvm-libs:edge
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: "DEVOPS-1244_rschardt"
-      - uses: .github/actions/install-dependencies-action@DEVOPS-1244_rschardt
+      - uses: ./.github/actions/install-dependencies-action@DEVOPS-1244_rschardt
       - name: Configure and Compile boreas
         run: |
           mkdir build
@@ -44,10 +38,7 @@ jobs:
     runs-on: 'ubuntu-latest'
     container: registry.community.greenbone.net/community/gvm-libs:edge
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: "DEVOPS-1244_rschardt"
-      - uses: .github/actions/install-dependencies-action@DEVOPS-1244_rschardt
+      - uses: ./.github/actions/install-dependencies-action@DEVOPS-1244_rschardt
       - name: Install clang tools
         run: |
           apt update
