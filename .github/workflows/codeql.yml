@@ -26,7 +26,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - uses: ./.github/actions/install-dependencies-action@DEVOPS-1244_rschardt/
+    - uses: ./.github/actions/install-dependencies-action/@DEVOPS-1244_rschardt
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
