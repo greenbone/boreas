@@ -15,4 +15,6 @@ runs:
         libgnutls28-dev \
         libpcap-dev \
         git \
+        clang-format \
+        libssh-dev
         && rm -rf /var/lib/apt/lists/*
