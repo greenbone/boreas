@@ -1,0 +1,20 @@
+name: 'Install dependencies'
+description: 'Install dependencies for Boreas'
+runs:
+  using: "composite"
+  steps:
+    - name: Build Boreas
+      shell: bash
+      run: |
+        apt-get update && apt-get install --no-install-recommends --no-install-suggests -y \
+        build-essential \
+        curl \
+        cmake \
+        pkg-config \
+        libglib2.0-dev \
+        libgnutls28-dev \
+        libpcap-dev \
+        git \
+        clang-format \
+        libssh-dev \
+        && rm -rf /var/lib/apt/lists/*
