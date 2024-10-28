@@ -1,0 +1,27 @@
+name: Build & Push to Greenbone Registry
+
+on:
+  push:
+    branches: [ main ]
+    tags: ["v*"]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      ref-name:
+        type: string
+        description: "The ref to build a container image from. For example a tag v23.0.0."
+        required: true
+
+jobs:
+  build-push-debian-stable-container:
+    name: Build and Push debian:stable to Greenbone Registry
+    uses: greenbone/workflows/.github/workflows/container-build-push-2nd-gen.yml@main
+    with:
+      build-docker-file: .docker/Dockerfile
+      image-url: community/boreas
+      image-labels: |
+        org.opencontainers.image.vendor=Greenbone
+        org.opencontainers.image.base.name=debian:stable-slim
+      ref-name: ${{ inputs.ref-name }}
+    secrets: inherit
