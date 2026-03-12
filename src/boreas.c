@@ -50,7 +50,9 @@ main (int argc, char *argv[])
   static gboolean tcp_syn = FALSE;
   static gboolean arp = FALSE;
   static unsigned int wait_timeout = 3;
+#ifdef FEATURE_HOST_DISCOVERY_IPV6
   static gboolean ipv6_hd = FALSE;
+#endif /* FEATURE_HOST_DISCOVERY_IPV6 */
 
   GError *error = NULL;
   GOptionContext *option_context;
@@ -76,8 +78,10 @@ main (int argc, char *argv[])
      "ARP ping. Supports both IPv4 and IPv6.", NULL},
     {"timeout", '\0', 0, G_OPTION_ARG_INT, &wait_timeout,
      "Wait time for replies.", NULL},
+#ifdef FEATURE_HOST_DISCOVERY_IPV6
     {"ipv6-host-discovery", '\0', 0, G_OPTION_ARG_NONE, &ipv6_hd,
      "Host discovery in large IPv6 Networks", NULL},
+#endif /* FEATURE_HOST_DISCOVERY_IPV6 */
     {NULL, 0, 0, 0, NULL, NULL, NULL}};
 
   option_context = g_option_context_new ("- Boreas");
@@ -125,7 +129,10 @@ main (int argc, char *argv[])
   alive_test =
     (icmp ? ALIVE_TEST_ICMP : 0) | (tcp_ack ? ALIVE_TEST_TCP_ACK_SERVICE : 0)
     | (tcp_syn ? ALIVE_TEST_TCP_SYN_SERVICE : 0) | (arp ? ALIVE_TEST_ARP : 0)
-    | (ipv6_hd ? ALIVE_TEST_IPV6_HOST_DISCOVERY : 0);
+#ifdef FEATURE_HOST_DISCOVERY_IPV6
+    | (ipv6_hd ? ALIVE_TEST_IPV6_HOST_DISCOVERY : 0)
+#endif /* FEATURE_HOST_DISCOVERY_IPV6 */
+    ;
 
   /* Use ICMP ping as default if there was no method specified. */
   if (alive_test == 0)
@@ -160,9 +167,11 @@ main (int argc, char *argv[])
         }
     }
 
-  /* Create host list. */
+#ifdef FEATURE_HOST_DISCOVERY_IPV6
   if (alive_test < 32)
     {
+#endif /* FEATURE_HOST_DISCOVERY_IPV6 */
+      /* Create host list. */
       hosts = gvm_hosts_new (host_list);
       if (NULL == hosts)
         {
@@ -190,12 +199,20 @@ main (int argc, char *argv[])
         }
       /* Run the cli scan. */
       err = run_cli_extended (hosts, alive_test, port_list, wait_timeout);
+#ifdef FEATURE_HOST_DISCOVERY_IPV6
     }
   else
     {
+      int print_results = 1;
+      if (exclude_list)
+        {
+          printf ("Not possible to exclude host during discovery");
+        }
       /* Run host discovery for large IPv6 Networks */
-      err = run_cli_for_ipv6_network (host_list);
+
+      err = run_cli_for_ipv6_network (host_list, NULL, print_results);
     }
+#endif /* FEATURE_HOST_DISCOVERY_IPV6 */
 
   if (err)
     printf ("Could not run the scan. %s. Further information can be found in "
