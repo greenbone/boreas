@@ -4,6 +4,7 @@
  */
 
 #include <errno.h>
+#include <gvm/base/hosts.h>
 #include <gvm/base/logging.h>
 #include <gvm/base/networking.h>
 #include <gvm/base/version.h> /* for gvm_libs_version */
@@ -49,6 +50,9 @@ main (int argc, char *argv[])
   static gboolean tcp_syn = FALSE;
   static gboolean arp = FALSE;
   static unsigned int wait_timeout = 3;
+#ifdef FEATURE_HOST_DISCOVERY_IPV6
+  static gboolean ipv6_hd = FALSE;
+#endif /* FEATURE_HOST_DISCOVERY_IPV6 */
 
   GError *error = NULL;
   GOptionContext *option_context;
@@ -74,6 +78,10 @@ main (int argc, char *argv[])
      "ARP ping. Supports both IPv4 and IPv6.", NULL},
     {"timeout", '\0', 0, G_OPTION_ARG_INT, &wait_timeout,
      "Wait time for replies.", NULL},
+#ifdef FEATURE_HOST_DISCOVERY_IPV6
+    {"ipv6-host-discovery", '\0', 0, G_OPTION_ARG_NONE, &ipv6_hd,
+     "Host discovery in large IPv6 Networks", NULL},
+#endif /* FEATURE_HOST_DISCOVERY_IPV6 */
     {NULL, 0, 0, 0, NULL, NULL, NULL}};
 
   option_context = g_option_context_new ("- Boreas");
@@ -120,7 +128,12 @@ main (int argc, char *argv[])
   /* Create alive test bit flag.*/
   alive_test =
     (icmp ? ALIVE_TEST_ICMP : 0) | (tcp_ack ? ALIVE_TEST_TCP_ACK_SERVICE : 0)
-    | (tcp_syn ? ALIVE_TEST_TCP_SYN_SERVICE : 0) | (arp ? ALIVE_TEST_ARP : 0);
+    | (tcp_syn ? ALIVE_TEST_TCP_SYN_SERVICE : 0) | (arp ? ALIVE_TEST_ARP : 0)
+#ifdef FEATURE_HOST_DISCOVERY_IPV6
+    | (ipv6_hd ? ALIVE_TEST_IPV6_HOST_DISCOVERY : 0)
+#endif /* FEATURE_HOST_DISCOVERY_IPV6 */
+    ;
+
   /* Use ICMP ping as default if there was no method specified. */
   if (alive_test == 0)
     alive_test = ALIVE_TEST_ICMP;
@@ -154,34 +167,53 @@ main (int argc, char *argv[])
         }
     }
 
-  /* Create host list. */
-  hosts = gvm_hosts_new (host_list);
-  if (NULL == hosts)
+#ifdef FEATURE_HOST_DISCOVERY_IPV6
+  if (alive_test < 32)
     {
-      printf ("Host list is not Valid.\n");
-      return -1;
-    }
-  unresolved = gvm_hosts_resolve (hosts);
-  while (unresolved)
-    {
-      printf ("Couldn't resolve hostname '%s'\n", (char *) unresolved->data);
-      unresolved = unresolved->next;
-    }
-  g_slist_free_full (unresolved, g_free);
+#endif /* FEATURE_HOST_DISCOVERY_IPV6 */
+      /* Create host list. */
+      hosts = gvm_hosts_new (host_list);
+      if (NULL == hosts)
+        {
+          printf ("Host list is not Valid.\n");
+          return -1;
+        }
+      unresolved = gvm_hosts_resolve (hosts);
+      while (unresolved)
+        {
+          printf ("Couldn't resolve hostname '%s'\n",
+                  (char *) unresolved->data);
+          unresolved = unresolved->next;
+        }
+      g_slist_free_full (unresolved, g_free);
 
-  /* Exclude hosts from host list. */
-  if (exclude_list)
-    {
-      /* Exclude hosts, resolving hostnames. */
-      int ret = gvm_hosts_exclude (hosts, exclude_list);
-      if (ret > 0)
-        printf ("exclude_list: Skipped %d host(s).\n", ret);
-      if (ret < 0)
-        printf ("Exclude host list is not Valid.\n");
+      /* Exclude hosts from host list. */
+      if (exclude_list)
+        {
+          /* Exclude hosts, resolving hostnames. */
+          int ret = gvm_hosts_exclude (hosts, exclude_list);
+          if (ret > 0)
+            printf ("exclude_list: Skipped %d host(s).\n", ret);
+          if (ret < 0)
+            printf ("Exclude host list is not Valid.\n");
+        }
+      /* Run the cli scan. */
+      err = run_cli_extended (hosts, alive_test, port_list, wait_timeout);
+#ifdef FEATURE_HOST_DISCOVERY_IPV6
     }
+  else
+    {
+      int print_results = 1;
+      if (exclude_list)
+        {
+          printf ("Not possible to exclude host during discovery");
+        }
+      /* Run host discovery for large IPv6 Networks */
 
-  /* Run the cli scan. */
-  err = run_cli_extended (hosts, alive_test, port_list, wait_timeout);
+      err = run_cli_for_ipv6_network (host_list, NULL, print_results);
+    }
+#endif /* FEATURE_HOST_DISCOVERY_IPV6 */
+
   if (err)
     printf ("Could not run the scan. %s. Further information can be found in "
             "the log file located in %s. \n",
