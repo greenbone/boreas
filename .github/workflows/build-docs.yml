@@ -19,7 +19,7 @@ jobs:
     container: greenbone/doxygen
     steps:
       - name: Check out gvmd
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Generate documentation (XML)
         run: |
              mkdir build
@@ -27,12 +27,12 @@ jobs:
              cmake -DSKIP_SRC=1 ..
              make doc-xml 2> ~/doxygen-stderr.txt
       - name: Upload doxygen error output as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: doxygen-stderr.txt
           path: ~/doxygen-stderr.txt
       - name: Upload XML documentation as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: xml-doc
           path: build/doc/generated/xml/
