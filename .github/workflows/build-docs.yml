@@ -11,7 +11,7 @@ jobs:
     container: greenbone/doxygen
     steps:
       - name: Run the c lang coverage action
-        uses: greenbone/actions/doc-coverage-clang@v3.36.12
+        uses: greenbone/actions/doc-coverage-clang@v3.36.13
 
   generate-xml-doc:
     name: Generate documentation (XML)
