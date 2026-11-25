@@ -138,8 +138,8 @@ main (int argc, char *argv[])
   if (alive_test == 0)
     alive_test = ALIVE_TEST_ICMP;
 
-    /* Verify that the port list is a valid one or use default portlist if none
-     * supplied. */
+  /* Verify that the port list is a valid one or use default portlist if none
+   * supplied. */
 #ifdef DEFAULT_PORT_LIST
   default_port_list = DEFAULT_PORT_LIST;
 #else
